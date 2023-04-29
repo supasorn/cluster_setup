@@ -18,10 +18,13 @@ done
 ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<n >/dev/null 2>&1
 
 
+rm ~/.ssh/known_hosts
+
 output=()
 for i in $node_list; do
   # remove old key
-  ssh-keygen -f /home/$user/.ssh/known_hosts -R v$i
+  # ssh-keygen -f /home/$user/.ssh/known_hosts -R v$i
+
   # add new key
   sshpass -p "$password" ssh-copy-id $user@v$i -i /home/$user/.ssh/id_rsa.pub -oStrictHostKeyChecking=accept-new
   # ssh to auto add hostkey, and return hostname
