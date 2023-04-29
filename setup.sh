@@ -29,6 +29,4 @@ for i in $node_list; do
 done
 
 printf '%s\n' "${output[@]}"
-
-
-
+# if everything is successful, you should see output: 1 vision01, 2 vision02, ...
