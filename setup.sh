@@ -8,7 +8,7 @@ read -s -p "sudo password: " password
 for i in $node_list; do
   ip="10.0.0.$i"
   if ! grep -q "^$ip " /etc/hosts; then
-    echo "$my_password" | sudo -S sh -c "echo \"$ip v${i}\" >> /etc/hosts"
+    echo "$password" | sudo -S sh -c "echo \"$ip v${i}\" >> /etc/hosts"
   fi
   # remove host from ~/.ssh/config
   sed 's/^Host/\n&/' ~/.ssh/config | sed '/^Host '"v$i"'$/,/^$/d;/^$/d' > tmpfile && mv tmpfile ~/.ssh/config
