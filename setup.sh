@@ -11,7 +11,8 @@ for i in $node_list; do
   if ! grep -q "^$ip " /etc/hosts; then
     sudo sh -c "echo \"$ip v${i}\" >> /etc/hosts"
   fi
-  sed 's/^Host/\n&/' ~/.ssh/config | sed '/^Host '"v23"'$/,/^$/d;/^$/d' > tmpfile && mv tmpfile ~/.ssh/config
+  # sed 's/^Host/\n&/' ~/.ssh/config | sed '/^Host '"v$i"'$/,/^$/d;/^$/d' > tmpfile && mv tmpfile ~/.ssh/config
+  sed 's/^Host/\n&/' ~/.ssh/config | sed '/^Host '"v$i"'$/,/^$/d;/^$/d' 
 done
 
 # ssh-keygen if haven't done so. 
