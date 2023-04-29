@@ -3,13 +3,12 @@ node_list=$(seq 1 23)
 user=$(whoami)
 
 read -s -p "sudo password: " password
-echo "$my_password" | sudo -S su
 
 # add v1 alias to /etc/hosts
 for i in $node_list; do
   ip="10.0.0.$i"
   if ! grep -q "^$ip " /etc/hosts; then
-    sudo sh -c "echo \"$ip v${i}\" >> /etc/hosts"
+    echo "$my_password" | sudo -S sh -c "echo \"$ip v${i}\" >> /etc/hosts"
   fi
   # remove host from ~/.ssh/config
   sed 's/^Host/\n&/' ~/.ssh/config | sed '/^Host '"v$i"'$/,/^$/d;/^$/d' > tmpfile && mv tmpfile ~/.ssh/config
